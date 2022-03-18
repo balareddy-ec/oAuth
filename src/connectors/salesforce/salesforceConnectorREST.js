@@ -42,8 +42,8 @@ export default class SalesforceConnectorREST {
         };
 
         return new Promise((resolve, reject) => {
-            axios.get(
-                'https://ec-expedite-dev-ed.my.salesforce.com/services/oauth2/token?' +
+            axios.post(
+                'https://ec-expedite-dev-ed.my.salesforce.com/services/oauth2/token'+
                 this.serialize(data)
             )
             .then(r => {
