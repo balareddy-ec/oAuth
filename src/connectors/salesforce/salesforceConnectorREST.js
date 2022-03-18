@@ -23,7 +23,7 @@ export default class SalesforceConnectorREST {
     }
 
     /** ****************      Auth Start by Bala ******************   */
-    getAccessToken(code, redirect_uri) {
+    getAccessToken(code) {
         const data = {
             grant_type: 'authorization_code',
             code,
