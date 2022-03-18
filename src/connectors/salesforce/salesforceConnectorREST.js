@@ -43,8 +43,9 @@ export default class SalesforceConnectorREST {
 
         return new Promise((resolve, reject) => {
             axios.post(
-                'https://ec-expedite-dev-ed.my.salesforce.com/services/oauth2/token'+
-                this.serialize(data)
+                'https://ec-expedite-dev-ed.my.salesforce.com/services/oauth2/token',
+                data,
+                { crossorigin: true }
             )
             .then(r => {
                 resolve(r.data);
