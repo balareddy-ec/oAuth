@@ -1,6 +1,24 @@
 <template>
   <div class="auth">
+      <br>
+      <label>Client ID</label><br>
+      <input type="text" v-model="client_id"/>
+      <br>
+      <br>
+      <label>Client Secret</label><br>
+      <input type="text" v-model="client_secret"/>
+      <br>
+      <br>
+      <label>Code</label><br>
+      <input type="text" v-model="code" />
+      <br>
+      <br>
+      <label>Redirect URL</label><br>
+      <input type="text" v-model="redirect_uri" />
+      <br>
+      <br>
       <button @click="initoAuth">Auth</button>
+      <p>Request JSON: {{ JSON.stringify(reqdata, null, 2) }}</p>
   </div>
 </template>
 
@@ -14,7 +32,11 @@ export default {
 
   data() {
     return {
-
+      code: this.$route.query.code,
+      client_id: '3MVG9riCAn8HHkYWhCjpJsP6M7CogzJaVsFgPuLnx8ubjRUAWxfz2FwveQnigPmuOVM1p2khA_Mmqj03tqzjc',
+      client_secret: '25D3EAE8C9C5DDE04365A4BF7087115DAA6E0597F79A617A1D5730D7542B7BAF',
+      redirect_uri: 'https://sf-access-6d3e2d.netlify.app/',
+      reqdata: {}
     };
   },
 
@@ -22,7 +44,15 @@ export default {
 
       async initoAuth() {
         console.log('sdsd', this.$route.query.code);
-        const response = await window.salesforceConnector.getAccessToken(this.$route.query.code);
+        const data = {
+            grant_type: 'authorization_code',
+            code: this.code,
+            client_id: this.client_id,
+            client_secret: this.client_secret,
+            redirect_uri: this.redirect_uri,
+        };
+        this.reqdata = data;
+        const response = await window.salesforceConnector.getAccessToken(data);
 
         console.log(response);
       },
@@ -31,3 +61,9 @@ export default {
 
 }
 </script>
+
+<style scoped>
+input {
+  width: 800px;
+}
+</style>
