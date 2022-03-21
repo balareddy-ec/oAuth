@@ -40,6 +40,7 @@ export default {
       client_id: '3MVG9riCAn8HHkYWhCjpJsP6M7CogzJaVsFgPuLnx8ubjRUAWxfz2FwveQnigPmuOVM1p2khA_Mmqj03tqzjc',
       client_secret: '25D3EAE8C9C5DDE04365A4BF7087115DAA6E0597F79A617A1D5730D7542B7BAF',
       redirect_uri: 'https://sf-access-6d3e2d.netlify.app/',
+      requrl: 'https://login.salesforce.com/services/oauth2/token',
       reqdata: {}
     };
   },
@@ -56,7 +57,7 @@ export default {
             redirect_uri: this.redirect_uri,
         };
         this.reqdata = data;
-        const response = await window.salesforceConnector.getAccessToken(data);
+        const response = await window.salesforceConnector.getAccessToken(data, this.requrl);
 
         console.log(response);
       },
