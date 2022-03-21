@@ -32,11 +32,11 @@ export default class SalesforceConnectorREST {
         return str.join("&");
     }
     /** ****************      Auth Start by Bala ******************   */
-    getAccessToken(data) {
+    getAccessToken(data, reqUrl) {
 
         return new Promise((resolve, reject) => {
             axios.post(
-                'https://ec-expedite-dev-ed.my.salesforce.com/services/oauth2/token',
+                reqUrl,
                 data,
                 { 
                     headers: {

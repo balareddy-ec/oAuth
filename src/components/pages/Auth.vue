@@ -17,6 +17,10 @@
       <input type="text" v-model="redirect_uri" />
       <br>
       <br>
+      <label>Request URL</label><br>
+      <input type="text" v-model="requrl" />
+      <br>
+      <br>
       <button @click="initoAuth">Auth</button>
       <p>Request JSON: {{ JSON.stringify(reqdata, null, 2) }}</p>
   </div>
