@@ -41,7 +41,8 @@ export default class SalesforceConnectorREST {
                 { 
                     headers: {
                         crossorigin: true,
-                        "Content-type": "application/x-www-form-urlencoded"
+                        "Content-type": "application/x-www-form-urlencoded",
+                        "Content-length": 307
                     } 
                 }
             )
