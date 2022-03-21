@@ -38,7 +38,12 @@ export default class SalesforceConnectorREST {
             axios.post(
                 'https://ec-expedite-dev-ed.my.salesforce.com/services/oauth2/token',
                 data,
-                { crossorigin: true }
+                { 
+                    headers: {
+                        crossorigin: true,
+                        "Content-type": "application/x-www-form-urlencoded"
+                    } 
+                }
             )
             .then(r => {
                 resolve(r.data);
