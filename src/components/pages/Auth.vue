@@ -60,11 +60,14 @@ export default {
       async initiateInterval() {
         let ctr = 1;
         setInterval(() => {
-          this.listdata = {};
-          this.getData();
-          console.log('ctr', ctr);
-          ctr++;
-        }, 15000);
+          const dt = new Date();
+          if(x.getSeconds() === 1) { 
+            this.listdata = {};
+            this.getData();
+            console.log('ctr', ctr);
+            ctr++;
+          }
+        }, 1000);
       },
       async getData() {
         const datalimits = await window.salesforceConnector.getResponseUsingAccessToken(
