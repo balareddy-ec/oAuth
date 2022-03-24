@@ -25,6 +25,10 @@
       <input type="text" v-model="dataurl" />
       <br>
       <br>
+      <label>Refresh Token</label><br>
+      <input type="text" v-model="refreshtoken" />
+      <br>
+      <br>
       <button @click="initoAuth">Auth</button>
       <p>Time Calls: {{ JSON.stringify(timeObj, null, 2) }}</p>
       <p>Request JSON: {{ JSON.stringify(reqdata, null, 2) }}</p>
@@ -54,6 +58,8 @@ export default {
       resdata: {},
       listdata: {},
       timeObj: {},
+      accesstoken: '',
+      refreshtoken: '',
       dataurl: 'https://ec-expedite-dev-ed.my.salesforce.com/services/data/v54.0/limits/',
     };
   },
@@ -74,7 +80,7 @@ export default {
       },
       async getData() {
         const datalimits = await window.salesforceConnector.getResponseUsingAccessToken(
-          this.dataurl, this.resdata.access_token);
+          this.dataurl, this.accesstoken);
         this.listdata = datalimits;
         console.log('datalimits', datalimits);
       },
@@ -102,19 +108,36 @@ export default {
 
         this.resdata = response;
         if(response.access_token) {
-          this.initiateInterval();
+          this.accesstoken = response.access_token;
+          this.refreshtoken = response.refresh_token;
+          // this.initiateInterval();
         }
 
         // const datalimits = await window.salesforceConnector.getResponseUsingAccessToken(
         //   this.dataurl, response.access_token);
         // this.listdata = datalimits;
       },
+      async getAccessTokenFromRefresh() {
+        const res = await window.salesforceConnector.getAccessToken(
+          `grant_type=refresh_token&client_id=${
+            data.client_id
+          }&client_secret=${
+            data.client_secret
+          }`
+        , this.requrl);
 
+        console.log(res);
+        if(res.access_token) {
+          this.accesstoken = response.access_token;
+          this.getData();
+        }
+      }
   },
 
   mounted() {
-    if(this.$route.query.code) {
-      this.initoAuth();
+    if(this.$route.query.refreshtoken) {
+      this.refreshtoken = decodeURIComponent(this.$route.query.refreshtoken);
+      this.getAccessTokenFromRefresh();
     }
   }
 

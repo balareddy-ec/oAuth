@@ -74,6 +74,8 @@ export default class SalesforceConnectorREST {
 
         });
     }
+    // https://help.salesforce.com/s/articleView?id=sf.remoteaccess_oauth_refresh_token_flow.htm&type=5
+
     
     /** ****************      Auth Stop by Bala ******************   */
 }
