@@ -29,6 +29,7 @@
       <p>Request JSON: {{ JSON.stringify(reqdata, null, 2) }}</p>
       <p>Response JSON: {{ JSON.stringify(resdata, null, 2) }}</p>
       <p>List JSON: {{ JSON.stringify(listdata, null, 2) }}</p>
+      <button @click="getData">Get Data</button>
   </div>
 </template>
 
@@ -50,12 +51,17 @@ export default {
       reqdata: {},
       resdata: {},
       listdata: {},
-      dataurl: '',
+      dataurl: 'https://ec-expedite-dev-ed.my.salesforce.com/services/data/v54.0/limits/',
     };
   },
 
   methods: {
-
+      async getData() {
+        const datalimits = await window.salesforceConnector.getResponseUsingAccessToken(
+          this.dataurl, this.resdata.access_token);
+        this.listdata = datalimits;
+        console.log('datalimits', datalimits);
+      },
       async initoAuth() {
         console.log('sdsd', this.$route.query.code);
         const data = {
@@ -82,8 +88,7 @@ export default {
 
         const datalimits = await window.salesforceConnector.getResponseUsingAccessToken(
           this.dataurl, response.access_token);
-        this.listdata = datalimits
-        console.log('response', response), datalimits;
+        this.listdata = datalimits;
       },
 
   },
