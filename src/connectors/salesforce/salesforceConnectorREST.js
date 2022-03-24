@@ -54,12 +54,11 @@ export default class SalesforceConnectorREST {
         });
     }
 
-    getAccessToken(url, atoken) {
+    getResponseUsingAccessToken(url, atoken) {
 
         return new Promise((resolve, reject) => {
-            axios.post(
+            axios.get(
                 url,
-                data,
                 { 
                     headers: {
                         "Authorization": "Bearer " + atoken,
