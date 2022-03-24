@@ -34,7 +34,7 @@
       <p>Request JSON: {{ JSON.stringify(reqdata, null, 2) }}</p>
       <p>Response JSON: {{ JSON.stringify(resdata, null, 2) }}</p>
       <p>List JSON: {{ JSON.stringify(listdata, null, 2) }}</p>
-      <p><a target="_blank" :href="getRefreshURL">{{ getRefreshURL() }}</a></p>
+      <p><a target="_blank" :href="getRefreshURL">{{ getRefreshURL }}</a></p>
       <button @click="getData">Get Data</button>
       <button @click="initiateInterval">Initiate Interval</button>
   </div>
@@ -62,7 +62,16 @@ export default {
       accesstoken: '',
       refreshtoken: '',
       dataurl: 'https://ec-expedite-dev-ed.my.salesforce.com/services/data/v54.0/limits/',
+      
     };
+  },
+
+  computed: {
+    getRefreshURL: function() {
+        return `https://sf-access-6d3e2d.netlify.app/auth?code=${
+          encodeURIComponent(this.code)
+        }&refreshtoken=${encodeURIComponent(this.refreshtoken)}`;
+      }
   },
 
   methods: {
@@ -133,11 +142,7 @@ export default {
           this.getData();
         }
       },
-      async getRefreshURL() {
-        return `https://sf-access-6d3e2d.netlify.app/auth?code=${
-          encodeURIComponent(this.code)
-        }&refreshtoken=${encodeURIComponent(this.refreshtoken)}`;
-      }
+      
   },
 
   mounted() {
