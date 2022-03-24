@@ -30,6 +30,7 @@
       <p>Response JSON: {{ JSON.stringify(resdata, null, 2) }}</p>
       <p>List JSON: {{ JSON.stringify(listdata, null, 2) }}</p>
       <button @click="getData">Get Data</button>
+      <button @click="initiateInterval">Initiate Interval</button>
   </div>
 </template>
 
@@ -56,6 +57,17 @@ export default {
   },
 
   methods: {
+      initiateInterval() {
+        let ctr = 1;
+        setInterval(() => {
+          this.listdata = {};
+          const datalimits = await window.salesforceConnector.getResponseUsingAccessToken(
+                  this.dataurl, this.resdata.access_token);
+          this.listdata = datalimits;
+          console.log('datalimits', datalimits, ctr);
+          ctr++;
+        }, 15000);
+      },
       async getData() {
         const datalimits = await window.salesforceConnector.getResponseUsingAccessToken(
           this.dataurl, this.resdata.access_token);
