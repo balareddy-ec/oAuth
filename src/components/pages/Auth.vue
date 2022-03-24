@@ -61,7 +61,7 @@ export default {
         let ctr = 1;
         setInterval(() => {
           const dt = new Date();
-          if(x.getSeconds() === 1) { 
+          if(dt.getSeconds() === 1) { 
             this.listdata = {};
             this.getData();
             console.log('ctr', ctr);
