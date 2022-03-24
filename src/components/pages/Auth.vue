@@ -57,7 +57,7 @@ export default {
   },
 
   methods: {
-      initiateInterval() {
+      async initiateInterval() {
         let ctr = 1;
         setInterval(() => {
           this.listdata = {};
