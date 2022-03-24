@@ -67,7 +67,7 @@ export default {
             this.listdata = {};
             this.getData();
             console.log('ctr', ctr);
-            timeObj[ctr] = dt.toISOString();
+            this.timeObj[ctr] = dt.toISOString();
             ctr++;
           }
         }, 1000);
