@@ -80,8 +80,9 @@ export default {
 
         this.resdata = response;
 
-        const datalimits = await window.salesforceConnector.getResponseUsingAccessToken(this.dataurl, response.access_token);
-        listdata = datalimits
+        const datalimits = await window.salesforceConnector.getResponseUsingAccessToken(
+          this.dataurl, response.access_token);
+        this.listdata = datalimits
         console.log('response', response), datalimits;
       },
 
