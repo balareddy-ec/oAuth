@@ -26,6 +26,7 @@
       <br>
       <br>
       <button @click="initoAuth">Auth</button>
+      <p>Time Calls: {{ JSON.stringify(timeObj, null, 2) }}</p>
       <p>Request JSON: {{ JSON.stringify(reqdata, null, 2) }}</p>
       <p>Response JSON: {{ JSON.stringify(resdata, null, 2) }}</p>
       <p>List JSON: {{ JSON.stringify(listdata, null, 2) }}</p>
@@ -52,6 +53,7 @@ export default {
       reqdata: {},
       resdata: {},
       listdata: {},
+      timeObj: {},
       dataurl: 'https://ec-expedite-dev-ed.my.salesforce.com/services/data/v54.0/limits/',
     };
   },
@@ -65,6 +67,7 @@ export default {
             this.listdata = {};
             this.getData();
             console.log('ctr', ctr);
+            timeObj[ctr] = dt.toISOString();
             ctr++;
           }
         }, 1000);
@@ -98,13 +101,22 @@ export default {
         , this.requrl);
 
         this.resdata = response;
+        if(response.access_token) {
+          this.initiateInterval();
+        }
 
-        const datalimits = await window.salesforceConnector.getResponseUsingAccessToken(
-          this.dataurl, response.access_token);
-        this.listdata = datalimits;
+        // const datalimits = await window.salesforceConnector.getResponseUsingAccessToken(
+        //   this.dataurl, response.access_token);
+        // this.listdata = datalimits;
       },
 
   },
+
+  mounted() {
+    if(this.$route.query.code) {
+      this.initoAuth();
+    }
+  }
 
 }
 </script>
