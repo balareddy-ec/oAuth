@@ -34,6 +34,7 @@
       <p>Request JSON: {{ JSON.stringify(reqdata, null, 2) }}</p>
       <p>Response JSON: {{ JSON.stringify(resdata, null, 2) }}</p>
       <p>List JSON: {{ JSON.stringify(listdata, null, 2) }}</p>
+      <p><a target="_blank" :href="getRefreshURL">{{ getRefreshURL() }}</a></p>
       <button @click="getData">Get Data</button>
       <button @click="initiateInterval">Initiate Interval</button>
   </div>
@@ -131,6 +132,11 @@ export default {
           this.accesstoken = res.access_token;
           this.getData();
         }
+      },
+      async getRefreshURL() {
+        return `https://sf-access-6d3e2d.netlify.app/auth?code=${
+          encodeURIComponent(this.code)
+        }&refreshtoken=${encodeURIComponent(this.refreshtoken)}`;
       }
   },
 
