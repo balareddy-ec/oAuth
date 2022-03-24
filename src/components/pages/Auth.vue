@@ -61,10 +61,8 @@ export default {
         let ctr = 1;
         setInterval(() => {
           this.listdata = {};
-          const datalimits = await window.salesforceConnector.getResponseUsingAccessToken(
-                  this.dataurl, this.resdata.access_token);
-          this.listdata = datalimits;
-          console.log('datalimits', datalimits, ctr);
+          this.getData();
+          console.log('ctr', ctr);
           ctr++;
         }, 15000);
       },
