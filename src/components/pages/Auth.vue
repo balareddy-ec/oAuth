@@ -120,15 +120,15 @@ export default {
       async getAccessTokenFromRefresh() {
         const res = await window.salesforceConnector.getAccessToken(
           `grant_type=refresh_token&client_id=${
-            data.client_id
+            this.client_id
           }&client_secret=${
-            data.client_secret
+            this.client_secret
           }`
         , this.requrl);
 
         console.log(res);
         if(res.access_token) {
-          this.accesstoken = response.access_token;
+          this.accesstoken = res.access_token;
           this.getData();
         }
       }
