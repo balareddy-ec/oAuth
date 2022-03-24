@@ -21,8 +21,14 @@
       <input type="text" v-model="requrl" />
       <br>
       <br>
+      <label>Data URL</label><br>
+      <input type="text" v-model="dataurl" />
+      <br>
+      <br>
       <button @click="initoAuth">Auth</button>
       <p>Request JSON: {{ JSON.stringify(reqdata, null, 2) }}</p>
+      <p>Response JSON: {{ JSON.stringify(resdata, null, 2) }}</p>
+      <p>List JSON: {{ JSON.stringify(listdata, null, 2) }}</p>
   </div>
 </template>
 
@@ -41,7 +47,10 @@ export default {
       client_secret: '25D3EAE8C9C5DDE04365A4BF7087115DAA6E0597F79A617A1D5730D7542B7BAF',
       redirect_uri: 'https://sf-access-6d3e2d.netlify.app/',
       requrl: 'https://ec-expedite-dev-ed.my.salesforce.com/services/oauth2/token',
-      reqdata: {}
+      reqdata: {},
+      resdata: {},
+      listdata: {},
+      dataurl: '',
     };
   },
 
@@ -69,7 +78,11 @@ export default {
           }&redirect_uri=${data.redirect_uri}`
         , this.requrl);
 
-        console.log(response);
+        this.resdata = response;
+
+        const datalimits = await getResponseUsingAccessToken(this.dataurl, response.access_token);
+        listdata = datalimits
+        console.log('response', response), datalimits;
       },
 
   },

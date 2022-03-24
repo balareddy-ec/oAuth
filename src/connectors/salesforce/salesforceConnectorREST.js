@@ -53,5 +53,28 @@ export default class SalesforceConnectorREST {
 
         });
     }
+
+    getAccessToken(url, atoken) {
+
+        return new Promise((resolve, reject) => {
+            axios.post(
+                url,
+                data,
+                { 
+                    headers: {
+                        "Authorization": "Bearer " + atoken,
+                    } 
+                }
+            )
+            .then(r => {
+                resolve(r.data);
+            })
+            .catch(e => {
+                reject(e);
+            })
+
+        });
+    }
+    
     /** ****************      Auth Stop by Bala ******************   */
 }
