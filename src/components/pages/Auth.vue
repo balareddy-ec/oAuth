@@ -30,13 +30,15 @@
       <br>
       <br>
       <button @click="initoAuth">Auth</button>
+      <button @click="getData">Get Data</button>
+      <button @click="initiateInterval">Initiate Interval</button>
+      <p>Access token: {{ accesstoken }}</p>
       <p>Time Calls: {{ JSON.stringify(timeObj, null, 2) }}</p>
       <p>Request JSON: {{ JSON.stringify(reqdata, null, 2) }}</p>
       <p>Response JSON: {{ JSON.stringify(resdata, null, 2) }}</p>
       <p>List JSON: {{ JSON.stringify(listdata, null, 2) }}</p>
       <p><a target="_blank" :href="getRefreshURL">{{ getRefreshURL }}</a></p>
-      <button @click="getData">Get Data</button>
-      <button @click="initiateInterval">Initiate Interval</button>
+      
   </div>
 </template>
 
@@ -89,6 +91,7 @@ export default {
         }, 1000);
       },
       async getData() {
+        this.listdata = {};
         const datalimits = await window.salesforceConnector.getResponseUsingAccessToken(
           this.dataurl, this.accesstoken);
         this.listdata = datalimits;
@@ -140,6 +143,7 @@ export default {
         if(res.access_token) {
           this.accesstoken = res.access_token;
           this.getData();
+          this.initiateInterval();
         }
       },
       
