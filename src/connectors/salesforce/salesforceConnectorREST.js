@@ -40,7 +40,6 @@ export default class SalesforceConnectorREST {
                 data,
                 { 
                     headers: {
-                        crossorigin: true,
                         "Content-type": "application/x-www-form-urlencoded",
                     } 
                 }

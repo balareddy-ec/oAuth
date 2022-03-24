@@ -57,7 +57,9 @@ export default {
             redirect_uri: this.redirect_uri,
         };
         this.reqdata = data;
-        const response = await window.salesforceConnector.getAccessToken(data, this.requrl);
+        const response = await window.salesforceConnector.getAccessToken(
+          `grant_type=${data.grant_type}&code=${data.code}&client_id=${data.client_id}&client_secret=${data.client_secret}&redirect_uri=${data.redirect_uri}`
+        , this.requrl);
 
         console.log(response);
       },
