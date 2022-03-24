@@ -123,7 +123,7 @@ export default {
             this.client_id
           }&client_secret=${
             this.client_secret
-          }`
+          }&refresh_token=${encodeURIComponent(this.refreshtoken)}`
         , this.requrl);
 
         console.log(res);
